@@ -31,11 +31,11 @@ struct csgjs_vertex
 
   csgjs_vertex() = default;
 
-  csgjs_vertex(const glm::vec3 &position, const glm::vec3 &normal, const glm::vec2 &coords)
+  csgjs_vertex(const glm::vec3 &position, const glm::vec3 &normal, const glm::vec2 &uv)
   :
   pos(position),
   normal(normal),
-  uv(coords)
+  uv(uv)
   {}
 };
 
