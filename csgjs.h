@@ -25,24 +25,24 @@
 
 struct csgjs_vertex
 {
-	glm::vec3 pos;
-	glm::vec3 normal;
-	glm::vec2 uv;
+  glm::vec3 pos;
+  glm::vec3 normal;
+  glm::vec2 uv;
 
-	csgjs_vertex() = default;
+  csgjs_vertex() = default;
 
-	csgjs_vertex(const glm::vec3 &position, const glm::vec3 &normal, const glm::vec2 &coords)
+  csgjs_vertex(const glm::vec3 &position, const glm::vec3 &normal, const glm::vec2 &coords)
   :
-	pos(position),
-	normal(normal),
-	uv(coords)
-	{}
+  pos(position),
+  normal(normal),
+  uv(coords)
+  {}
 };
 
 struct csgjs_model
 {
-	std::vector<csgjs_vertex> vertices;
-	std::vector<int> indices;
+  std::vector<csgjs_vertex> vertices;
+  std::vector<int> indices;
 };
 
 // public interface - not super efficient, if you use multiple CSG operations you should
@@ -66,14 +66,14 @@ struct csgjs_node;
 // Represents a plane in 3D space.
 struct csgjs_plane
 {
-	glm::vec3 normal;
-	float w;
+  glm::vec3 normal;
+  float w;
 
-	csgjs_plane();
-	csgjs_plane(const glm::vec3 & a, const glm::vec3 & b, const glm::vec3 & c);
-	bool ok() const;
-	void flip();
-	void splitPolygon(const csgjs_polygon & polygon, std::vector<csgjs_polygon> & coplanarFront, std::vector<csgjs_polygon> & coplanarBack, std::vector<csgjs_polygon> & front, std::vector<csgjs_polygon> & back) const;
+  csgjs_plane();
+  csgjs_plane(const glm::vec3 & a, const glm::vec3 & b, const glm::vec3 & c);
+  bool ok() const;
+  void flip();
+  void splitPolygon(const csgjs_polygon & polygon, std::vector<csgjs_polygon> & coplanarFront, std::vector<csgjs_polygon> & coplanarBack, std::vector<csgjs_polygon> & front, std::vector<csgjs_polygon> & back) const;
 };
 
 // Represents a convex polygon. The vertices used to initialize a polygon must
@@ -86,12 +86,12 @@ struct csgjs_plane
 // This can be used to define per-polygon properties (such as surface color).
 struct csgjs_polygon
 {
-	std::vector<csgjs_vertex> vertices;
-	csgjs_plane plane;
-	void flip();
+  std::vector<csgjs_vertex> vertices;
+  csgjs_plane plane;
+  void flip();
 
-	csgjs_polygon();
-	csgjs_polygon(const std::vector<csgjs_vertex> & list);
+  csgjs_polygon();
+  csgjs_polygon(const std::vector<csgjs_vertex> & list);
 };
 
 // Holds a node in a BSP tree. A BSP tree is built from a collection of polygons
@@ -101,19 +101,19 @@ struct csgjs_polygon
 // no distinction between internal and leaf nodes.
 struct csgjs_csgnode
 {
-	std::vector<csgjs_polygon> polygons;
-	csgjs_csgnode * front;
-	csgjs_csgnode * back;
-	csgjs_plane plane;
+  std::vector<csgjs_polygon> polygons;
+  csgjs_csgnode * front;
+  csgjs_csgnode * back;
+  csgjs_plane plane;
 
-	csgjs_csgnode();
-	csgjs_csgnode(const std::vector<csgjs_polygon> & list);
-	~csgjs_csgnode();
+  csgjs_csgnode();
+  csgjs_csgnode(const std::vector<csgjs_polygon> & list);
+  ~csgjs_csgnode();
 
-	csgjs_csgnode * clone() const;
-	void clipTo(const csgjs_csgnode * other);
-	void invert();
-	void build(const std::vector<csgjs_polygon> & polygon);
-	std::vector<csgjs_polygon> clipPolygons(const std::vector<csgjs_polygon> & list) const;
-	std::vector<csgjs_polygon> allPolygons() const;
+  csgjs_csgnode * clone() const;
+  void clipTo(const csgjs_csgnode * other);
+  void invert();
+  void build(const std::vector<csgjs_polygon> & polygon);
+  std::vector<csgjs_polygon> clipPolygons(const std::vector<csgjs_polygon> & list) const;
+  std::vector<csgjs_polygon> allPolygons() const;
 };
